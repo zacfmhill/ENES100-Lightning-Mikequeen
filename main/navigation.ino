@@ -49,7 +49,7 @@ long getUltrasonicDistance(){
   digitalWrite(pingPin, LOW);
   delayMicroseconds(2);
   digitalWrite(pingPin, HIGH);
-
+  delayMicroseconds(10);
   digitalWrite(pingPin, LOW);
   duration = pulseIn(echoPin, HIGH);
   cm = duration * 0.034 / 2; 
