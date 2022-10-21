@@ -1,6 +1,7 @@
 #include <Enes100.h>
 #include <math.h>
 #include <OSVpins.h>
+#include <Tank.h>
 /*************************************************
   Analog Pin Definitions
  *************************************************/
