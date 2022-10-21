@@ -1,5 +1,9 @@
+/*************************************************
+   Code for navigating around the arena
+ *************************************************/
+
+/*** Vision System Location Detection ***/ 
 void updateCurrentLocation() {
-  // Update the OSV's current location
   while (!Enes100.updateLocation()) {
     // OSV's location was not found
   }
@@ -37,4 +41,17 @@ bool checkLocationChange() {
     return false;
   }
   return true;
+}
+
+/*** Ultrasonic ***/
+long getUltrasonicDistance(){
+  long duration; 
+  digitalWrite(pingPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(pingPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(pingPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  cm = duration * 0.034 / 2; 
+  return cm;
 }
