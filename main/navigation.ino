@@ -2,6 +2,9 @@
    Code for navigating around the arena
  *************************************************/
 
+//constant for line follower
+int lineFollowLimit = 100; 
+
 /*** Vision System Location Detection ***/ 
 void updateCurrentLocation() {
   while (!Enes100.updateLocation()) {
@@ -52,6 +55,28 @@ long getUltrasonicDistance(){
   delayMicroseconds(10);
   digitalWrite(pingPin, LOW);
   duration = pulseIn(echoPin, HIGH);
-  cm = duration * 0.034 / 2; 
+  long cm = duration * 0.034 / 2; 
   return cm;
+}
+/*** Line Follower ***/ 
+void followLine(){
+  //left side reads line
+  if(analogRead(leftLineSensor) < lineFollowLimit){
+    rightMotorForward(125);
+    leftMotorForward(50);
+  }
+  //right side reads line
+  else if(analogRead(rightLineSensor) < lineFollowLimit){
+    leftMotorForward(125);
+    rightMotorForward(50);
+
+  }
+  //nothing reads line
+  else{
+    driveForward(125);
+  }
+}
+
+void findLine(){
+
 }

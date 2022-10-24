@@ -1,23 +1,39 @@
 #include <Enes100.h>
 #include <math.h>
-#include <OSVpins.h>
 #include <Tank.h>
-/*************************************************
-  Analog Pin Definitions
- *************************************************/
-const leftLineSensor = A0; 
-const rightLineSensor = A1; 
-const closeLeftTherm = A2; 
-const closeRightTherm = A3; 
-const farLeftTherm = A4;
-const farRightTherm = A5;
 
-// Location variables
+/*************************************************
+   Pin Definitions
+ *************************************************/
+ //#define fanPin 13
+ #define pingPin 12  // Trigger Pin of Ultrasonic Sensor
+ #define echoPin 11  // Echo Pin of Ultrasonic Sensor
+ #define servoPin 10 
+ #define leftMotorsIN1 13 
+ #define leftMotorsIN2 12
+ #define rightMotorsIN1 8
+ #define rightMotorsIN2 7
+ #define ENA 9 //Motor 1 PWM
+ #define ENB 6 //Motor 2 PWM
+ #define TXPin 5
+ #define RXPin 3
+ #define leftLimitSwitch 4
+ #define rightLimitSwitch 2
+const int leftLineSensor = A0; 
+const int rightLineSensor = A1; 
+const int closeLeftTherm = A2; 
+const int closeRightTherm = A3; 
+const int farLeftTherm = A4;
+const int farRightTherm = A5;
+/*************************************************
+  Variable Setup
+ *************************************************/
 double lastLocation[3];
 double currentLocation[3];
 double goalLocation[2];
 
 void setup() {
+   Serial.begin(9600);
     // Set Pin Modes
       // Ultrasonic
     pinMode(pingPin, OUTPUT);
@@ -34,6 +50,10 @@ void setup() {
       // Limit Switches
     pinMode(leftLimitSwitch, INPUT);
     pinMode(rightLimitSwitch, INPUT);
+      //Line Folowers
+    pinMode(leftLineSensor, INPUT); 
+    pinMode(rightLineSensor, INPUT); 
+
 
 
     // Initialize Enes100 library
@@ -44,8 +64,9 @@ void setup() {
 
 void loop() {
     // Get OSV current position and print it to the console
-    updateCurrentLocation();
-    printCurrentLocation();
-	  printLastLocation();
+    // updateCurrentLocation();
+    // printCurrentLocation();
+	  // printLastLocation();
+    Serial.println(getUltrasonicDistance());
     
 }
