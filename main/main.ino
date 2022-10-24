@@ -1,14 +1,14 @@
 #include <Enes100.h>
 #include <math.h>
-#include <Tank.h>
+//#include <Tank.h>
 
 /*************************************************
    Pin Definitions
  *************************************************/
- //#define fanPin 13
+ #define fanPin 10
  #define pingPin 12  // Trigger Pin of Ultrasonic Sensor
  #define echoPin 11  // Echo Pin of Ultrasonic Sensor
- #define servoPin 10 
+ //#define servoPin 10 
  #define leftMotorsIN1 13 
  #define leftMotorsIN2 12
  #define rightMotorsIN1 8
@@ -46,19 +46,21 @@ void setup() {
     pinMode(ENA, OUTPUT);
     pinMode(ENB, OUTPUT);
       // Servo
-    pinMode(servoPin, OUTPUT);
+   // pinMode(servoPin, OUTPUT);
       // Limit Switches
     pinMode(leftLimitSwitch, INPUT);
     pinMode(rightLimitSwitch, INPUT);
       //Line Folowers
     pinMode(leftLineSensor, INPUT); 
     pinMode(rightLineSensor, INPUT); 
+      //fan
+    pinMode(fanPin, OUTPUT);
 
 
 
     // Initialize Enes100 library
     // Team Name, Mission Type, Marker ID, TX Pin, RX Pin
-    Enes100.begin("It's Lit", FIRE, 3, 10, 11);
+// Enes100.begin("It's Lit", FIRE, 3, 10, 11);
     
 }
 
@@ -67,6 +69,12 @@ void loop() {
     // updateCurrentLocation();
     // printCurrentLocation();
 	  // printLastLocation();
-    Serial.println(getUltrasonicDistance());
+    //Serial.println(getUltrasonicDistance());
+    // Serial.println("ON");
+    // digitalWrite(fanPin,HIGH);
+    // delay(1000);
+    Serial.println("OFF");
+    digitalWrite(fanPin,LOW);
+    delay(1000);
     
 }
