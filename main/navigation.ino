@@ -100,3 +100,26 @@ void turnToAngle(double desiredAngle){
 		updateCurrentLocation();
 	}
 }
+
+void moveToGoalLocation(){
+	updateCurrentLocation();
+	// printCurrentLocation();
+	// Enes100.println("Goal Location:");
+	// Enes100.println(goalLocation[0]);
+	// Enes100.println(goalLocation[1]);
+	turnToAngle(calculateDesiredAngle());
+	stopMotors();
+	delay(100);
+	driveForward(255);
+	updateCurrentLocation();
+	double deltaX = abs(currentLocation[0] - goalLocation[0]);
+	double deltaY = abs(currentLocation[1] - goalLocation[1]);
+	while(deltaX > 0.1 || deltaY > 0.1){
+		updateCurrentLocation();
+		deltaX = abs(currentLocation[0] - goalLocation[0]);
+		deltaY = abs(currentLocation[1] - goalLocation[1]);
+	  driveForward(255);
+	}
+	stopMotors();
+	
+}
