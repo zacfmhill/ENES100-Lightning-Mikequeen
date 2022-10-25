@@ -80,3 +80,23 @@ void followLine(){
 void findLine(){
 
 }
+
+double calculateDesiredAngle(){
+	double deltaX = goalLocation[0]- currentLocation[0];
+	double deltaY = goalLocation[1]- currentLocation[1];
+	double angle = atan2f(deltaY,deltaX);
+	return angle;
+}
+
+void turnToAngle(double desiredAngle){
+	// Enes100.print("desired Anlge: ");
+	// Enes100.println(desiredAngle);
+	// Enes100.print("Current Angle: ");
+	// Enes100.println(currentLocation[2]);
+	while(currentLocation[2] <= desiredAngle - 0.01 || currentLocation[2] >= desiredAngle +0.01){
+		turnLeft(125);
+		// Enes100.print("Current Angle: ");
+		// Enes100.println(currentLocation[2]);
+		updateCurrentLocation();
+	}
+}
