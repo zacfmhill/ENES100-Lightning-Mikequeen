@@ -1,40 +1,40 @@
 #include <Enes100.h>
 #include <math.h>
 //#include <Tank.h>
+#include "OSVpins.h"
+/*************************************************
+  Constants
+ *************************************************/
+#define MarkerID = 19; 
+#define Line_Follow_Stage = 1; 
+#define Detect_Topography_Stage = 2;
+#define Detect_Num_Flames_Stage = 3; 
+#define Blow_Out_Candles_Stage = 4; 
+#define Navigate_To_End_Stage = 5; 
 
 /*************************************************
-   Pin Definitions
+  Analog Pin Definitions
  *************************************************/
- #define fanPin 10
- #define pingPin 12  // Trigger Pin of Ultrasonic Sensor
- #define echoPin 11  // Echo Pin of Ultrasonic Sensor
- //#define servoPin 10 
- #define leftMotorsIN1 13 
- #define leftMotorsIN2 12
- #define rightMotorsIN1 8
- #define rightMotorsIN2 7
- #define ENA 9 //Motor 1 PWM
- #define ENB 6 //Motor 2 PWM
- #define TXPin 5
- #define RXPin 3
- #define leftLimitSwitch 4
- #define rightLimitSwitch 2
 const int leftLineSensor = A0; 
 const int rightLineSensor = A1; 
 const int closeLeftTherm = A2; 
 const int closeRightTherm = A3; 
 const int farLeftTherm = A4;
 const int farRightTherm = A5;
+
 /*************************************************
   Variable Setup
  *************************************************/
 double lastLocation[3];
 double currentLocation[3];
 double goalLocation[2];
+int currentStage = 1; 
+
+
 
 void setup() {
    Serial.begin(9600);
-    // Set Pin Modes
+    // *****  Set Pin Modes  ***** //
       // Ultrasonic
     pinMode(pingPin, OUTPUT);
     pinMode(echoPin, INPUT);
@@ -60,7 +60,7 @@ void setup() {
 
     // Initialize Enes100 library
     // Team Name, Mission Type, Marker ID, TX Pin, RX Pin
-// Enes100.begin("It's Lit", FIRE, 3, 10, 11);
+    // Enes100.begin("Lightning Mikequeen", FIRE, MarkerID, TXPin, RXPin);
     
 }
 
@@ -76,5 +76,29 @@ void loop() {
     Serial.println("OFF");
     digitalWrite(fanPin,LOW);
     delay(1000);
+
+
+  // Control which step in mission
+  switch(currentStage){
+    case Line_Follow_Stage:
+    // statements
+    //currentStage++;
+    break;
+    case Detect_Topography_Stage:
+    // statements
+    //currentStage++;
+    break;
+    case Detect_Num_Flames_Stage:
+    // statements
+    //currentStage++;
+    break;
+    case Blow_Out_Candles_Stage:
+    // statements
+    //currentStage++;
+    break;
+    case Navigate_To_End_Stage:
+    // statements
+    break;
+  }
     
 }
