@@ -4,7 +4,7 @@
 
 //constant for line follower
 int lineFollowLimit = 100; 
-int locChangeLimit = 0.01
+int locChangeLimit = 0.01;
 
 /*** Vision System Location Detection ***/ 
 void updateCurrentLocation() {
@@ -102,6 +102,7 @@ void turnToAngleLeft(double desiredAngle){
 		updateCurrentLocation();
 	}
 }
+
 void turnToAngleRight(double desiredAngle){
 	Enes100.print("desired Anlge: ");
 	Enes100.println(desiredAngle);

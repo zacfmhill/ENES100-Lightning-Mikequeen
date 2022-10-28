@@ -93,13 +93,13 @@ void loop() {
   // A) [10 Points] MOTION 
     // DriveForward(255);
   // (B) [15 Points] TURN 
-    turnToAngleRight(0);
-    delay(2000);
-    turnToAngleLeft(PI/2);
-    delay(2000);
-    turnToAngleRight(0);
-    delay(2000);
-    turnToAngleLeft(PI/2);
+    // turnToAngleRight(0);
+    // delay(2000);
+    // turnToAngleLeft(PI/2);
+    // delay(2000);
+    // turnToAngleRight(0);
+    // delay(2000);
+    // turnToAngleLeft(PI/2);
   //(C) [5 Points] WiFi COMMUNICATION
     //updateCurrentLocation();
     //delay(1000);
