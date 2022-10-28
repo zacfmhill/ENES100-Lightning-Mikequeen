@@ -12,8 +12,8 @@
  #define rightMotorsIN2 25
  #define ENA 9 //Motor 1 PWM
  #define ENB 6 //Motor 2 PWM
- #define TXPin 5
- #define RXPin 3
+ #define TXPin 14
+ #define RXPin 15
  #define leftLimitSwitch 4
  #define rightLimitSwitch 2
 

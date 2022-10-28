@@ -5,12 +5,12 @@
 /*************************************************
   Constants
  *************************************************/
-#define MarkerID = 254; 
-#define Line_Follow_Stage = 1; 
-#define Detect_Topography_Stage = 2;
-#define Detect_Num_Flames_Stage = 3; 
-#define Blow_Out_Candles_Stage = 4; 
-#define Navigate_To_End_Stage = 5; 
+#define MarkerID 254
+#define Line_Follow_Stage 1
+#define Detect_Topography_Stage 2
+#define Detect_Num_Flames_Stage 3
+#define Blow_Out_Candles_Stage 4
+#define Navigate_To_End_Stage 5 
 
 /*************************************************
   Analog Pin Definitions
@@ -60,7 +60,7 @@ void setup() {
 
     // Initialize Enes100 library
     // Team Name, Mission Type, Marker ID, TX Pin, RX Pin
-    // Enes100.begin("Lightning Mikequeen", FIRE, MarkerID, TXPin, RXPin);
+   // Enes100.begin("Lightning Mikequeen", FIRE, MarkerID, TXPin, RXPin);
     
 }
 
@@ -91,10 +91,17 @@ void loop() {
     
     // ************ MS5 *************** // 
   // A) [10 Points] MOTION 
-    // DriveForward(255);
+// driveForward(255);
   // (B) [15 Points] TURN 
-    // turnToAngleRight(0);
-    // delay(2000);
+    turnRight(255);
+    delay(1400);
+    stopMotors();
+    delay(3000);
+    turnLeft(255);
+    delay(1400);
+    stopMotors();
+    delay(3000);
+    
     // turnToAngleLeft(PI/2);
     // delay(2000);
     // turnToAngleRight(0);
@@ -110,9 +117,11 @@ void loop() {
     //   Enes100.println("LOCATION HAS NOT CHANGED :(")
     // }
   //(D) [15 Points] MISSION SPECIFIC APPARATUS
-    //turnOnFan();
-    //delay(10000);
-    //turnOffFan();
+  // delay(3000);
+  //   turnOnFan();
+  //   delay(10000);
+  //   turnOffFan();
+
 
 
   // Control which step in mission
