@@ -5,11 +5,11 @@
  #define fanPin 10
  #define pingPin 12  // Trigger Pin of Ultrasonic Sensor
  #define echoPin 11  // Echo Pin of Ultrasonic Sensor
- //#define servoPin 10 
- #define leftMotorsIN1 13 
- #define leftMotorsIN2 12
- #define rightMotorsIN1 8
- #define rightMotorsIN2 7
+ #define servoPin 10 
+ #define leftMotorsIN1 22 
+ #define leftMotorsIN2 23
+ #define rightMotorsIN1 24
+ #define rightMotorsIN2 25
  #define ENA 9 //Motor 1 PWM
  #define ENB 6 //Motor 2 PWM
  #define TXPin 5

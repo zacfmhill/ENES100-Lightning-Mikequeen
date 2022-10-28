@@ -4,6 +4,7 @@
 
 //constant for line follower
 int lineFollowLimit = 100; 
+int locChangeLimit = 0.01
 
 /*** Vision System Location Detection ***/ 
 void updateCurrentLocation() {
@@ -40,7 +41,7 @@ void printLastLocation() {
 }
 
 bool checkLocationChange() {
-  if (abs(lastLocation[0] - currentLocation[0]) < 0.001 && abs(lastLocation[0] - currentLocation[0]) < 0.001) {
+  if (abs(lastLocation[0] - currentLocation[0]) < locChangeLimit && abs(lastLocation[0] - currentLocation[0]) < locChangeLimit) {
     return false;
   }
   return true;
@@ -55,7 +56,8 @@ long getUltrasonicDistance(){
   delayMicroseconds(10);
   digitalWrite(pingPin, LOW);
   duration = pulseIn(echoPin, HIGH);
-  long cm = duration * 0.034 / 2; 
+  long cm = duration * 0.034 / 2;
+
   return cm;
 }
 /*** Line Follower ***/ 
@@ -88,7 +90,7 @@ double calculateDesiredAngle(){
 	return angle;
 }
 
-void turnToAngle(double desiredAngle){
+void turnToAngleLeft(double desiredAngle){
 	// Enes100.print("desired Anlge: ");
 	// Enes100.println(desiredAngle);
 	// Enes100.print("Current Angle: ");
@@ -100,6 +102,18 @@ void turnToAngle(double desiredAngle){
 		updateCurrentLocation();
 	}
 }
+void turnToAngleRight(double desiredAngle){
+	Enes100.print("desired Anlge: ");
+	Enes100.println(desiredAngle);
+	Enes100.print("Current Angle: ");
+	Enes100.println(currentLocation[2]);
+	while(currentLocation[2] <= desiredAngle - 0.01 || currentLocation[2] >= desiredAngle +0.01){
+		turnRight(125);
+		Enes100.print("Current Angle: ");
+		Enes100.println(currentLocation[2]);
+		updateCurrentLocation();
+	}
+}
 
 void moveToGoalLocation(){
 	updateCurrentLocation();
@@ -107,7 +121,7 @@ void moveToGoalLocation(){
 	// Enes100.println("Goal Location:");
 	// Enes100.println(goalLocation[0]);
 	// Enes100.println(goalLocation[1]);
-	turnToAngle(calculateDesiredAngle());
+	turnToAngleLeft(calculateDesiredAngle());
 	stopMotors();
 	delay(100);
 	driveForward(255);
@@ -123,3 +137,4 @@ void moveToGoalLocation(){
 	stopMotors();
 	
 }
+
