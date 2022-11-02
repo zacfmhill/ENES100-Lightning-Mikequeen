@@ -109,14 +109,14 @@ void loop() {
     // turnToAngleLeft(PI/2);
   //(C) [5 Points] WiFi COMMUNICATION
     //updateCurrentLocation();
-    delay(3000);
-   updateCurrentLocation();
-    if(checkLocationChange()){
-      Enes100.println("LOCATION HAS CHANGED!!!!");
-    }else{
-      Enes100.println("LOCATION HAS NOT CHANGED :(");
-    }
-   printCurrentLocation();
+   // delay(3000);
+  //  updateCurrentLocation();
+  //   if(checkLocationChange()){
+  //     Enes100.println("LOCATION HAS CHANGED!!!!");
+  //   }else{
+  //     Enes100.println("LOCATION HAS NOT CHANGED :(");
+  //   }
+  //  printCurrentLocation();
     // Enes100.updateLocation();
     // Enes100.println(Enes100.location.x);
     // Enes100.println("Test");
