@@ -4,14 +4,13 @@
 
 //constant for line follower
 int lineFollowLimit = 100; 
-int locChangeLimit = 0.01;
-
+int locChangeLimit = 0.1;
 /*** Vision System Location Detection ***/ 
 void updateCurrentLocation() {
   while (!Enes100.updateLocation()) {
+    Enes100.println("404 not found!");
     // OSV's location was not found
   }
-  Enes100.updateLocation();
   lastLocation[0] = currentLocation[0];
   lastLocation[1] = currentLocation[1];
   lastLocation[2] = currentLocation[2];

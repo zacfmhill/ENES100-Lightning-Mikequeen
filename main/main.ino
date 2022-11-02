@@ -5,7 +5,7 @@
 /*************************************************
   Constants
  *************************************************/
-#define MarkerID 254
+#define MarkerID 213
 #define Line_Follow_Stage 1
 #define Detect_Topography_Stage 2
 #define Detect_Num_Flames_Stage 3
@@ -60,8 +60,8 @@ void setup() {
 
     // Initialize Enes100 library
     // Team Name, Mission Type, Marker ID, TX Pin, RX Pin
-   // Enes100.begin("Lightning Mikequeen", FIRE, MarkerID, TXPin, RXPin);
-    
+   Enes100.begin("Lightning Mikequeen", FIRE, MarkerID, TXPin, RXPin);
+    //driveForward(255);
 }
 
 void loop() {
@@ -93,14 +93,14 @@ void loop() {
   // A) [10 Points] MOTION 
 // driveForward(255);
   // (B) [15 Points] TURN 
-    turnRight(255);
-    delay(1400);
-    stopMotors();
-    delay(3000);
-    turnLeft(255);
-    delay(1400);
-    stopMotors();
-    delay(3000);
+    // turnRight(255);
+    // delay(1400);
+    // stopMotors();
+    // delay(3000);
+    // turnLeft(255);
+    // delay(1400);
+    // stopMotors();
+    // delay(3000);
     
     // turnToAngleLeft(PI/2);
     // delay(2000);
@@ -109,13 +109,18 @@ void loop() {
     // turnToAngleLeft(PI/2);
   //(C) [5 Points] WiFi COMMUNICATION
     //updateCurrentLocation();
-    //delay(1000);
-    //updateCurrentLocation();
-    // if(checkLocationChange()){
-    //   Enes100.println("LOCATION HAS CHANGED!!!!")
-    // }else{
-    //   Enes100.println("LOCATION HAS NOT CHANGED :(")
-    // }
+    delay(3000);
+   updateCurrentLocation();
+    if(checkLocationChange()){
+      Enes100.println("LOCATION HAS CHANGED!!!!");
+    }else{
+      Enes100.println("LOCATION HAS NOT CHANGED :(");
+    }
+   printCurrentLocation();
+    // Enes100.updateLocation();
+    // Enes100.println(Enes100.location.x);
+    // Enes100.println("Test");
+    // Enes100.println(Enes100.missionSite.x);
   //(D) [15 Points] MISSION SPECIFIC APPARATUS
   // delay(3000);
   //   turnOnFan();
