@@ -76,8 +76,11 @@ void loop() {
     break;
     case Line_Follow_Stage:
       //follow line 
+      followLine();
       // stop when limit switch hits
-    
+    if(digitalRead(leftLimitSwitch)== HIGH || digitalRead(rightLimitSwitch) == HIGH){
+      currentStage++;
+    }
     //currentStage++;
     break;
     case Detect_Topography_Stage:
