@@ -63,8 +63,8 @@ long getUltrasonicDistance(){
 void followLine(){
   //left side reads line
   if(analogRead(leftLineSensor) < lineFollowLimit){
-    rightMotorForward(125);
-    leftMotorForward(50);
+    rightMotorForward(50);
+    leftMotorForward(125);
   }
   //right side reads line
   else if(analogRead(rightLineSensor) < lineFollowLimit){
