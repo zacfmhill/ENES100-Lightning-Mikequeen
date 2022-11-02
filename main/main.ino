@@ -65,92 +65,32 @@ void setup() {
 }
 
 void loop() {
-    // Get OSV current position and print it to the console
-    // updateCurrentLocation();
-    // printCurrentLocation();
-	  // printLastLocation();
-    //Serial.println(getUltrasonicDistance());
-
-   // testing fan
-    // Serial.println("ON");
-    // digitalWrite(fanPin,HIGH);
-    // delay(3000);
-    // Serial.println("OFF");
-    // digitalWrite(fanPin,LOW);
-    // delay(3000);
-
-    //testing ultrasonic
-    // Serial.println(getUltrasonicDistance());
-    // delay(100);
-
-    //testing IR
-    // Serial.print("Left IR Sensor: ");
-    // Serial.println(analogRead(leftLineSensor));
-    // Serial.print("Right IR Sensor: ");
-    // Serial.println(analogRead(rightLineSensor));
-    
-    // ************ MS5 *************** // 
-  // A) [10 Points] MOTION 
-// driveForward(255);
-  // (B) [15 Points] TURN 
-    // turnRight(255);
-    // delay(1400);
-    // stopMotors();
-    // delay(3000);
-    // turnLeft(255);
-    // delay(1400);
-    // stopMotors();
-    // delay(3000);
-    
-    // turnToAngleLeft(PI/2);
-    // delay(2000);
-    // turnToAngleRight(0);
-    // delay(2000);
-    // turnToAngleLeft(PI/2);
-  //(C) [5 Points] WiFi COMMUNICATION
-    //updateCurrentLocation();
-   // delay(3000);
-  //  updateCurrentLocation();
-  //   if(checkLocationChange()){
-  //     Enes100.println("LOCATION HAS CHANGED!!!!");
-  //   }else{
-  //     Enes100.println("LOCATION HAS NOT CHANGED :(");
-  //   }
-  //  printCurrentLocation();
-    // Enes100.updateLocation();
-    // Enes100.println(Enes100.location.x);
-    // Enes100.println("Test");
-    // Enes100.println(Enes100.missionSite.x);
-  //(D) [15 Points] MISSION SPECIFIC APPARATUS
-  // delay(3000);
-  //   turnOnFan();
-  //   delay(10000);
-  //   turnOffFan();
-
-
-
+   
   // Control which step in mission
-  // switch(currentStage){
-  //   case Line_Follow_Stage:
-  //   // statements
-  //   //currentStage++;
-  //   break;
-  //   case Detect_Topography_Stage:
-  //   // statements
-  //   //currentStage++;
-  //   break;
-  //   case Detect_Num_Flames_Stage:
-  //   // statements
-  //   //currentStage++;
-  //   break;
-  //   case Blow_Out_Candles_Stage:
-  //   // statements
-  //   //currentStage++;
-  //   break;
-  //   case Navigate_To_End_Stage:
-  //   // statements
-  //   break;
-  // }
+  switch(currentStage){
+    case Line_Follow_Stage:
+    // find line
+    //follow line 
+    // stop when limit switch hits
+    
+    //currentStage++;
+    break;
+    case Detect_Topography_Stage:
+    // statements
+    //currentStage++;
+    break;
+    case Detect_Num_Flames_Stage:
+    // statements
+    //currentStage++;
+    break;
+    case Blow_Out_Candles_Stage:
+    // statements
+    //currentStage++;
+    break;
+    case Navigate_To_End_Stage:
+    // statements
+    break;
+  }
 
     
 }
