@@ -6,11 +6,13 @@
   Constants
  *************************************************/
 #define MarkerID 213
+#define Find_Line_Stage 0
 #define Line_Follow_Stage 1
 #define Detect_Topography_Stage 2
 #define Detect_Num_Flames_Stage 3
 #define Blow_Out_Candles_Stage 4
 #define Navigate_To_End_Stage 5 
+
 
 /*************************************************
   Analog Pin Definitions
@@ -28,7 +30,7 @@ const int farRightTherm = A5;
 double lastLocation[3];
 double currentLocation[3];
 double goalLocation[2];
-int currentStage = 1; 
+int currentStage = 0; 
 
 
 
@@ -68,10 +70,13 @@ void loop() {
    
   // Control which step in mission
   switch(currentStage){
+    case Find_Line_Stage:
+      findLine();
+      currentStage++;
+    break;
     case Line_Follow_Stage:
-    // find line
-    //follow line 
-    // stop when limit switch hits
+      //follow line 
+      // stop when limit switch hits
     
     //currentStage++;
     break;
