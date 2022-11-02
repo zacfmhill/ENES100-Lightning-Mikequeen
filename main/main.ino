@@ -84,8 +84,30 @@ void loop() {
     //currentStage++;
     break;
     case Detect_Topography_Stage:
-    // statements
-    //currentStage++;
+      stopMotors();
+      driveForward(255);
+      delay(250);
+      int last = readTopography();  
+      driveBackward(125);
+      delay(250);
+      stopMotors();
+      driveForward(255);
+      delay(500);
+      int check = readTopography();
+      if (last == check){
+        Enes100.mission(TOPOGRAPHY, check);
+      } else{
+        driveBackward(125);
+      delay(250);
+      stopMotors();
+      driveForward(255);
+      delay(500);
+      check = readTopography();
+      Enes100.mission(TOPOGRAPHY, check);
+      }
+      stopMotors();
+
+    currentStage++;
     break;
     case Detect_Num_Flames_Stage:
     // statements
