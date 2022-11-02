@@ -79,7 +79,13 @@ void followLine(){
 }
 
 void findLine(){
-
+// Make OSV turn 
+while(analogRead(rightLineSensor) > lineFollowLimit){
+turnLeft(255);
+}
+// Once sensor reads 0 (off the line) continue turning
+// Once sensor reads 1 (on line) stop turning
+stopMotors();
 }
 
 double calculateDesiredAngle(){
