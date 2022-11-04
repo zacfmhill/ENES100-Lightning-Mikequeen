@@ -5,11 +5,12 @@
 //constant for line follower
 int lineFollowLimit = 100; 
 int locChangeLimit = 0.1;
-/*** Vision System Location Detection ***/ 
+
+// Updates the stored last location and stored current location of the OSV to the current OSV location based on the vision system
 void updateCurrentLocation() {
   while (!Enes100.updateLocation()) {
+     // OSV's location was not found
     Enes100.println("404 not found!");
-    // OSV's location was not found
   }
   lastLocation[0] = currentLocation[0];
   lastLocation[1] = currentLocation[1];
@@ -19,6 +20,7 @@ void updateCurrentLocation() {
   currentLocation[2] = Enes100.location.theta;
 }
 
+// Prints the stored current location of the OSV
 void printCurrentLocation() {
   Enes100.print("Current Location: [");
   Enes100.print(currentLocation[0]);
@@ -29,6 +31,7 @@ void printCurrentLocation() {
   Enes100.println("]");
 }
 
+// Prints the stored last location of the OSV
 void printLastLocation() {
   Enes100.print("Last Location: [");
   Enes100.print(lastLocation[0]);
@@ -39,14 +42,16 @@ void printLastLocation() {
   Enes100.println("]");
 }
 
+// Checks if the OSV location has changed from the current and last stored locations and returns true or false
 bool checkLocationChange() {
-  if (abs(lastLocation[0] - currentLocation[0]) < locChangeLimit && abs(lastLocation[0] - currentLocation[0]) < locChangeLimit) {
+  if (abs(lastLocation[0] - currentLocation[0]) < locChangeLimit && abs(lastLocation[1] - currentLocation[1]) < locChangeLimit) {
     return false;
   }
   return true;
 }
 
 /*** Ultrasonic ***/
+// Returns the distance of an object from the front of the OSV in cm using the ultrasonic
 long getUltrasonicDistance(){
   long duration; 
   digitalWrite(pingPin, LOW);
@@ -60,6 +65,8 @@ long getUltrasonicDistance(){
   return cm;
 }
 /*** Line Follower ***/ 
+
+// Sets movement for following the line using photoresistors once. (Needs to be included in a loop!!)
 void followLine(){
   //left side reads line
   if(analogRead(leftLineSensor) < lineFollowLimit){
@@ -78,6 +85,7 @@ void followLine(){
   }
 }
 
+// Has the OSV turn to find the line to follow. 
 void findLine(){
 // Make OSV turn 
 while(analogRead(rightLineSensor) > lineFollowLimit){
@@ -88,6 +96,7 @@ turnLeft(255);
 stopMotors();
 }
 
+// returns the desired angle between the current location and our goal location. 
 double calculateDesiredAngle(){
 	double deltaX = goalLocation[0]- currentLocation[0];
 	double deltaY = goalLocation[1]- currentLocation[1];
@@ -95,19 +104,21 @@ double calculateDesiredAngle(){
 	return angle;
 }
 
+// Turns left to a given desired angle based on the vision system. 
 void turnToAngleLeft(double desiredAngle){
-	// Enes100.print("desired Anlge: ");
-	// Enes100.println(desiredAngle);
-	// Enes100.print("Current Angle: ");
-	// Enes100.println(currentLocation[2]);
+	Enes100.print("desired Anlge: ");
+	Enes100.println(desiredAngle);
+	Enes100.print("Current Angle: ");
+	Enes100.println(currentLocation[2]);
 	while(currentLocation[2] <= desiredAngle - 0.01 || currentLocation[2] >= desiredAngle +0.01){
 		turnLeft(125);
-		// Enes100.print("Current Angle: ");
-		// Enes100.println(currentLocation[2]);
+		Enes100.print("Current Angle: ");
+		Enes100.println(currentLocation[2]);
 		updateCurrentLocation();
 	}
 }
 
+// Turns right to a given desired angle based on the vision system. 
 void turnToAngleRight(double desiredAngle){
 	Enes100.print("desired Anlge: ");
 	Enes100.println(desiredAngle);
@@ -121,6 +132,7 @@ void turnToAngleRight(double desiredAngle){
 	}
 }
 
+// Moves to the location stored in goalLocation
 void moveToGoalLocation(){
 	updateCurrentLocation();
 	// printCurrentLocation();
