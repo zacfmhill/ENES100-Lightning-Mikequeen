@@ -5,7 +5,7 @@
 /*************************************************
   Constants
  *************************************************/
-#define MarkerID 213
+#define MarkerID 217
 #define Find_Line_Stage 0
 #define Line_Follow_Stage 1
 #define Detect_Topography_Stage 2
@@ -31,7 +31,8 @@ double lastLocation[3];
 double currentLocation[3];
 double goalLocation[2];
 int currentStage = 0; 
-
+int last; 
+int check;
 
 
 void setup() {
@@ -62,12 +63,39 @@ void setup() {
 
     // Initialize Enes100 library
     // Team Name, Mission Type, Marker ID, TX Pin, RX Pin
-   Enes100.begin("Lightning Mikequeen", FIRE, MarkerID, TXPin, RXPin);
+   Enes100.begin("AAAAAAAA", FIRE, MarkerID, 51, 50);
     //driveForward(255);
+
+    goalLocation[0] = Enes100.missionSite.x;
+  	goalLocation[1] = Enes100.missionSite.y;
 }
 
 void loop() {
-   
+  Serial.println("STARTED LOOP");
+  Enes100.println("STARTED LOOP");
+  while(1){
+  delay(100);
+  if(Enes100.ping()){
+    //Serial.println("Connected");
+    updateCurrentLocation();
+    printCurrentLocation();
+    Enes100.println("DELAY BEFORE TURN");
+    delay(5000);
+    turnToAngleLeft(calculateDesiredAngle());
+    Serial.println("COMPLETED");
+  }
+  else{
+    Serial.println("Failed");
+  }
+
+
+
+    
+  //
+  }
+//	moveToGoalLocation();
+//	while(1);
+
   // Control which step in mission
   switch(currentStage){
     case Find_Line_Stage:
@@ -78,22 +106,22 @@ void loop() {
       //follow line 
       followLine();
       // stop when limit switch hits
-    if(digitalRead(leftLimitSwitch)== HIGH || digitalRead(rightLimitSwitch) == HIGH){
-      currentStage++;
-    }
+    // if(digitalRead(leftLimitSwitch)== HIGH || digitalRead(rightLimitSwitch) == HIGH){
+    //   currentStage++;
+    // }
     //currentStage++;
     break;
     case Detect_Topography_Stage:
       stopMotors();
       driveForward(255);
       delay(250);
-      int last = readTopography();  
+      last = readTopography();  
       driveBackward(125);
       delay(250);
       stopMotors();
       driveForward(255);
       delay(500);
-      int check = readTopography();
+      check = readTopography();
       if (last == check){
         Enes100.mission(TOPOGRAPHY, check);
       } else{
@@ -110,12 +138,21 @@ void loop() {
     currentStage++;
     break;
     case Detect_Num_Flames_Stage:
-    // statements
-    //currentStage++;
+      int numCandles = getNumCandles(); 
+      Enes100.mission(NUM_CANDLES, numCandles);
+      currentStage++;
     break;
     case Blow_Out_Candles_Stage:
-    // statements
-    //currentStage++;
+      int counter = 0; 
+      //trys 4 times then gives up 
+      while(counter < 4){
+        bool checker = putOutFlames(); 
+        if(checker){
+          counter = 4; 
+        }
+      counter++; 
+    }
+    currentStage++;
     break;
     case Navigate_To_End_Stage:
     // statements

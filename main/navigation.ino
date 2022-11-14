@@ -3,7 +3,8 @@
  *************************************************/
 
 //constant for line follower
-int lineFollowLimit = 100; 
+int lineFollowLimitLeft = 745; 
+int lineFollowLimitRight = 870;
 int locChangeLimit = 0.1;
 
 // Updates the stored last location and stored current location of the OSV to the current OSV location based on the vision system
@@ -11,6 +12,7 @@ void updateCurrentLocation() {
   while (!Enes100.updateLocation()) {
      // OSV's location was not found
     Enes100.println("404 not found!");
+    Serial.println("404!!");
   }
   lastLocation[0] = currentLocation[0];
   lastLocation[1] = currentLocation[1];
@@ -69,26 +71,27 @@ long getUltrasonicDistance(){
 // Sets movement for following the line using photoresistors once. (Needs to be included in a loop!!)
 void followLine(){
   //left side reads line
-  if(analogRead(leftLineSensor) < lineFollowLimit){
-    rightMotorForward(50);
-    leftMotorForward(125);
+  if(analogRead(leftLineSensor) > lineFollowLimitLeft){
+    rightMotorForward(255);
+    stopLeftMotor();
   }
   //right side reads line
-  else if(analogRead(rightLineSensor) < lineFollowLimit){
-    leftMotorForward(125);
-    rightMotorForward(50);
+  else if(analogRead(rightLineSensor) > lineFollowLimitRight){
+    leftMotorForward(255);
+    stopRightMotor();
 
   }
   //nothing reads line
   else{
-    driveForward(125);
+    leftMotorForward(255);
+    stopRightMotor();
   }
 }
 
 // Has the OSV turn to find the line to follow. 
 void findLine(){
 // Make OSV turn 
-while(analogRead(rightLineSensor) > lineFollowLimit){
+while(analogRead(rightLineSensor) < lineFollowLimitRight){
 turnLeft(255);
 }
 // Once sensor reads 0 (off the line) continue turning
@@ -98,6 +101,7 @@ stopMotors();
 
 // returns the desired angle between the current location and our goal location. 
 double calculateDesiredAngle(){
+  updateCurrentLocation();
 	double deltaX = goalLocation[0]- currentLocation[0];
 	double deltaY = goalLocation[1]- currentLocation[1];
 	double angle = atan2f(deltaY,deltaX);
@@ -106,16 +110,31 @@ double calculateDesiredAngle(){
 
 // Turns left to a given desired angle based on the vision system. 
 void turnToAngleLeft(double desiredAngle){
+  Serial.print("desired Anlge: ");
+	Serial.println(desiredAngle);
+	Serial.print("Current Angle: ");
+	Serial.println(currentLocation[2]);
+  Enes100.print("Goal Location: ");
+  Enes100.print(goalLocation[0]);
+  Enes100.print(", ");
+  Enes100.print(goalLocation[1]);
 	Enes100.print("desired Anlge: ");
 	Enes100.println(desiredAngle);
 	Enes100.print("Current Angle: ");
 	Enes100.println(currentLocation[2]);
-	while(currentLocation[2] <= desiredAngle - 0.01 || currentLocation[2] >= desiredAngle +0.01){
-		turnLeft(125);
-		Enes100.print("Current Angle: ");
-		Enes100.println(currentLocation[2]);
+	while(currentLocation[2] <= desiredAngle - 0.03 || currentLocation[2] >= desiredAngle +0.03){
+		turnLeft(75);
+		Serial.print("desired Anlge: ");
+	  Serial.println(desiredAngle);
+	  Serial.print("Current Angle: ");
+	  Serial.println(currentLocation[2]);
+    Enes100.print("desired Anlge: ");
+	  Enes100.print(desiredAngle);
+	  Enes100.print(" Current Angle: ");
+	  Enes100.println(currentLocation[2]);
 		updateCurrentLocation();
 	}
+  stopMotors();
 }
 
 // Turns right to a given desired angle based on the vision system. 
@@ -135,10 +154,10 @@ void turnToAngleRight(double desiredAngle){
 // Moves to the location stored in goalLocation
 void moveToGoalLocation(){
 	updateCurrentLocation();
-	// printCurrentLocation();
-	// Enes100.println("Goal Location:");
-	// Enes100.println(goalLocation[0]);
-	// Enes100.println(goalLocation[1]);
+	printCurrentLocation();
+	Enes100.println("Goal Location:");
+	Enes100.println(goalLocation[0]);
+	Enes100.println(goalLocation[1]);
 	turnToAngleLeft(calculateDesiredAngle());
 	stopMotors();
 	delay(100);
@@ -147,6 +166,14 @@ void moveToGoalLocation(){
 	double deltaX = abs(currentLocation[0] - goalLocation[0]);
 	double deltaY = abs(currentLocation[1] - goalLocation[1]);
 	while(deltaX > 0.1 || deltaY > 0.1){
+    Enes100.print("Goal Location: ");
+	  Enes100.print(goalLocation[0]);
+    Enes100.print(", ");
+	  Enes100.println(goalLocation[1]);
+    Enes100.print("Goal Location: ");
+	  Enes100.print(goalLocation[0]);
+    Enes100.print(", ");
+	  Enes100.println(goalLocation[1]);
 		updateCurrentLocation();
 		deltaX = abs(currentLocation[0] - goalLocation[0]);
 		deltaY = abs(currentLocation[1] - goalLocation[1]);
