@@ -5,7 +5,7 @@
 /*************************************************
   Constants
  *************************************************/
-#define MarkerID 217
+#define MarkerID 524
 #define Find_Line_Stage 0
 #define Line_Follow_Stage 1
 #define Detect_Topography_Stage 2
@@ -30,7 +30,7 @@ const int farRightTherm = A5;
 double lastLocation[3];
 double currentLocation[3];
 double goalLocation[2];
-int currentStage = 0; 
+int currentStage = 2; 
 int last; 
 int check;
 
@@ -51,51 +51,58 @@ void setup() {
       // Servo
    // pinMode(servoPin, OUTPUT);
       // Limit Switches
-    pinMode(leftLimitSwitch, INPUT);
-    pinMode(rightLimitSwitch, INPUT);
+    //pinMode(leftLimitSwitch, INPUT);
+    //pinMode(rightLimitSwitch, INPUT);
       //Line Folowers
     pinMode(leftLineSensor, INPUT); 
     pinMode(rightLineSensor, INPUT); 
       //fan
-    pinMode(fanPin, OUTPUT);
+    pinMode(fanMotorsIN1, OUTPUT);
+    pinMode(fanMotorsIN2, OUTPUT);
+    pinMode(FENA, OUTPUT);
+    pinMode(A15, INPUT);
+    pinMode(A14, INPUT);
 
 
 
     // Initialize Enes100 library
     // Team Name, Mission Type, Marker ID, TX Pin, RX Pin
-   Enes100.begin("AAAAAAAA", FIRE, MarkerID, 51, 50);
-    //driveForward(255);
-
+    
+    
+    
+    //Enes100.begin("Lightning Mikequeen", FIRE, MarkerID, 51, 50);
+    
     goalLocation[0] = Enes100.missionSite.x;
   	goalLocation[1] = Enes100.missionSite.y;
 }
 
 void loop() {
-  Serial.println("STARTED LOOP");
-  Enes100.println("STARTED LOOP");
-  while(1){
-  delay(100);
-  if(Enes100.ping()){
-    //Serial.println("Connected");
-    updateCurrentLocation();
-    printCurrentLocation();
-    Enes100.println("DELAY BEFORE TURN");
-    delay(5000);
-    turnToAngleLeft(calculateDesiredAngle());
-    Serial.println("COMPLETED");
-  }
-  else{
-    Serial.println("Failed");
-  }
+  driveForward(255);
 
 
+  // while(1){
+  //   delay(1000);
+  //   Serial.println(readTopography());
 
-    
-  //
-  }
-//	moveToGoalLocation();
-//	while(1);
+  // }
 
+  // while(1){
+  // delay(100);
+  // if(Enes100.ping()){
+  //   Serial.println("Connected");
+  //   updateCurrentLocation();
+  //   printCurrentLocation();
+  //   Enes100.println("DELAY BEFORE TURN");
+  //   delay(5000);
+  //   moveToGoalLocation();
+  //   Serial.println("COMPLETED");
+  // }
+  // else{
+  //   Serial.println("Failed");
+  // }
+  // }
+
+  Serial.println("YES");
   // Control which step in mission
   switch(currentStage){
     case Find_Line_Stage:
@@ -112,17 +119,22 @@ void loop() {
     //currentStage++;
     break;
     case Detect_Topography_Stage:
+    Serial.println("TOSDOINDONDONO");
       stopMotors();
       driveForward(255);
-      delay(250);
+      delay(1000);
       last = readTopography();  
+      stopMotors();
+      delay(1000);
       driveBackward(125);
-      delay(250);
+      delay(500);
       stopMotors();
       driveForward(255);
-      delay(500);
+      delay(1000);
       check = readTopography();
       if (last == check){
+        Serial.println("TOPO:");
+       Serial.println(check);
         Enes100.mission(TOPOGRAPHY, check);
       } else{
         driveBackward(125);
@@ -131,11 +143,14 @@ void loop() {
       driveForward(255);
       delay(500);
       check = readTopography();
-      Enes100.mission(TOPOGRAPHY, check);
+      Serial.println("TOPO:");
+      Serial.println(check);
+      //Enes100.mission(TOPOGRAPHY, check);
       }
       stopMotors();
-
-    currentStage++;
+      Serial.println("DONE");
+    while(1);
+   // currentStage++;
     break;
     case Detect_Num_Flames_Stage:
       int numCandles = getNumCandles(); 

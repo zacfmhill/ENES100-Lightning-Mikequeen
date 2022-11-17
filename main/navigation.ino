@@ -123,7 +123,7 @@ void turnToAngleLeft(double desiredAngle){
 	Enes100.print("Current Angle: ");
 	Enes100.println(currentLocation[2]);
 	while(currentLocation[2] <= desiredAngle - 0.03 || currentLocation[2] >= desiredAngle +0.03){
-		turnLeft(75);
+		turnLeft(125);
 		Serial.print("desired Anlge: ");
 	  Serial.println(desiredAngle);
 	  Serial.print("Current Angle: ");
@@ -144,7 +144,7 @@ void turnToAngleRight(double desiredAngle){
 	Enes100.print("Current Angle: ");
 	Enes100.println(currentLocation[2]);
 	while(currentLocation[2] <= desiredAngle - 0.01 || currentLocation[2] >= desiredAngle +0.01){
-		turnRight(125);
+		turnRight(100);
 		Enes100.print("Current Angle: ");
 		Enes100.println(currentLocation[2]);
 		updateCurrentLocation();
@@ -160,12 +160,12 @@ void moveToGoalLocation(){
 	Enes100.println(goalLocation[1]);
 	turnToAngleLeft(calculateDesiredAngle());
 	stopMotors();
-	delay(100);
-	driveForward(255);
+	delay(1000);
+	driveBackward(255);
 	updateCurrentLocation();
 	double deltaX = abs(currentLocation[0] - goalLocation[0]);
 	double deltaY = abs(currentLocation[1] - goalLocation[1]);
-	while(deltaX > 0.1 || deltaY > 0.1){
+	while(deltaX > 0.2 || deltaY > 0.2){
     Enes100.print("Goal Location: ");
 	  Enes100.print(goalLocation[0]);
     Enes100.print(", ");
@@ -177,7 +177,7 @@ void moveToGoalLocation(){
 		updateCurrentLocation();
 		deltaX = abs(currentLocation[0] - goalLocation[0]);
 		deltaY = abs(currentLocation[1] - goalLocation[1]);
-	  driveForward(255);
+	  driveBackward(255);
 	}
 	stopMotors();
 	

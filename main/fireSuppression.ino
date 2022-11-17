@@ -3,19 +3,23 @@
  *************************************************/
 
 // Turns on the fans. 
- void turnOnFan(){
-   digitalWrite(fanPin,HIGH);
+ void turnOnFan(int PWM){
+   digitalWrite(fanMotorsIN1, HIGH);
+    digitalWrite(fanMotorsIN2, LOW);
+    analogWrite(FENA, PWM);
  }
 
 // Turns off the fans. 
  void turnOffFan(){
-   digitalWrite(fanPin,LOW);
+   digitalWrite(fanMotorsIN1, LOW);
+    digitalWrite(fanMotorsIN2, LOW);
+    analogWrite(FENA, 0);
  }
 
 // Returns true if all flames out, false if flames still present. 
  bool putOutFlames(){
    int startNum = getNumCandles();
-   turnOnFan();
+   turnOnFan(255);
    delay(10000);
    turnOffFan();
    int endNum = getNumCandles();

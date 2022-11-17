@@ -16,6 +16,10 @@
  #define RXPin 51
  #define leftLimitSwitch 4
  #define rightLimitSwitch 2
+ #define fanMotorsIN1 41
+ #define fanMotorsIN2 42
+ #define FENA 40
+
 
 
  // ANALOG IN MAIN.INO
