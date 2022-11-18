@@ -30,7 +30,7 @@ const int farRightTherm = A5;
 double lastLocation[3];
 double currentLocation[3];
 double goalLocation[2];
-int currentStage = 2; 
+int currentStage = 1; 
 int last; 
 int check;
 
@@ -70,19 +70,26 @@ void setup() {
     
     
     
-    //Enes100.begin("Lightning Mikequeen", FIRE, MarkerID, 51, 50);
+    Enes100.begin("Lightning Mikequeen", FIRE, MarkerID, 51, 50);
     
     goalLocation[0] = Enes100.missionSite.x;
   	goalLocation[1] = Enes100.missionSite.y;
 }
 
 void loop() {
-  driveForward(255);
-
+  driveForward(150);
+ // driveForward(255);
+  // while(!Enes100.ping());
 
   // while(1){
-  //   delay(1000);
-  //   Serial.println(readTopography());
+   // delay(500);
+   // Serial.print("LEFT ");
+
+//    Serial.println(analogRead(A15));
+   
+    
+    //  Serial.print("RIGHT ");
+    // Serial.println(analogRead(A15));
 
   // }
 
@@ -102,7 +109,6 @@ void loop() {
   // }
   // }
 
-  Serial.println("YES");
   // Control which step in mission
   switch(currentStage){
     case Find_Line_Stage:
@@ -111,60 +117,46 @@ void loop() {
     break;
     case Line_Follow_Stage:
       //follow line 
-      followLine();
+     // followLine();
+     driveForward(150);
       // stop when limit switch hits
-    // if(digitalRead(leftLimitSwitch)== HIGH || digitalRead(rightLimitSwitch) == HIGH){
-    //   currentStage++;
-    // }
+    if(analogRead(A15) <  1000 || analogRead(A14) < 1000){
+      currentStage++;
+    }
     //currentStage++;
     break;
     case Detect_Topography_Stage:
-    Serial.println("TOSDOINDONDONO");
-      stopMotors();
-      driveForward(255);
-      delay(1000);
-      last = readTopography();  
       stopMotors();
       delay(1000);
-      driveBackward(125);
-      delay(500);
-      stopMotors();
-      driveForward(255);
-      delay(1000);
-      check = readTopography();
-      if (last == check){
-        Serial.println("TOPO:");
-       Serial.println(check);
-        Enes100.mission(TOPOGRAPHY, check);
-      } else{
-        driveBackward(125);
-      delay(250);
-      stopMotors();
-      driveForward(255);
-      delay(500);
-      check = readTopography();
-      Serial.println("TOPO:");
-      Serial.println(check);
-      //Enes100.mission(TOPOGRAPHY, check);
-      }
-      stopMotors();
+      driveForward(150);
+      delay(1500);
+      check = readTopography(); 
+      stopMotors(); 
+      Enes100.print("Topography Read: "); 
+      Enes100.println(check);
+      Enes100.mission(TOPOGRAPHY, check);
       Serial.println("DONE");
-    while(1);
-   // currentStage++;
-    break;
-    case Detect_Num_Flames_Stage:
-      int numCandles = getNumCandles(); 
-      Enes100.mission(NUM_CANDLES, numCandles);
       currentStage++;
     break;
+    case Detect_Num_Flames_Stage:
+      currentStage++;
+      break;
+    //   int numCandles = getNumCandles(); 
+    //   Enes100.mission(NUM_CANDLES, numCandles);
+    //   currentStage++;
+    // break;
     case Blow_Out_Candles_Stage:
       int counter = 0; 
       //trys 4 times then gives up 
       while(counter < 4){
-        bool checker = putOutFlames(); 
-        if(checker){
-          counter = 4; 
-        }
+        // bool checker = putOutFlames(); 
+        // if(checker){
+        //   counter = 4; 
+        // }
+        turnOnFan(255);
+        delay(10000);
+        turnOffFan();
+        delay(5000);
       counter++; 
     }
     currentStage++;
