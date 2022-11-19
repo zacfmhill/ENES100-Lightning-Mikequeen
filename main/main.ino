@@ -60,8 +60,8 @@ void setup() {
     pinMode(fanMotorsIN1, OUTPUT);
     pinMode(fanMotorsIN2, OUTPUT);
     pinMode(FENA, OUTPUT);
-    pinMode(A15, INPUT);
-    pinMode(A14, INPUT);
+    pinMode(A11, INPUT);
+    pinMode(A10, INPUT);
 
 
 
