@@ -4,17 +4,17 @@
 
 // Reads the topography and returns the corresponding value based on the limit switches. 
  int readTopography(){
-  if(analogRead(A11) <  1000  && analogRead(A10) > 1020){
+  if(digitalRead(leftLimitSwitch) == 1  && digitalRead(rightLimitSwitch) == 0){
           Serial.println("A");
 
       return TOP_A;
     }
-    if(analogRead(A11) >  1000  && analogRead(A10) < 1000){
+    if(digitalRead(leftLimitSwitch) == 0  && digitalRead(rightLimitSwitch) == 1){
             Serial.println("B");
 
       return TOP_B;
     }
-    if(analogRead(A11) < 1000  && analogRead(A10) < 1000){
+    if(digitalRead(leftLimitSwitch) == 1 && digitalRead(rightLimitSwitch) == 1){
       Serial.println("C");
       return TOP_C;
     }

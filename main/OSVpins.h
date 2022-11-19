@@ -2,24 +2,17 @@
    Digital Pin Definitions
  *************************************************/
  
- #define fanPin 10
  #define pingPin 12  // Trigger Pin of Ultrasonic Sensor
- #define echoPin 11  // Echo Pin of Ultrasonic Sensor
- #define servoPin 10 
- #define leftMotorsIN1 22 
- #define leftMotorsIN2 23
- #define rightMotorsIN1 24
- #define rightMotorsIN2 25
- #define ENA 5 //Motor 1 PWM
- #define ENB 6 //Motor 2 PWM
- #define TXPin 50
- #define RXPin 51
- #define leftLimitSwitch 4
- #define rightLimitSwitch 2
- #define fanMotorsIN1 41
- #define fanMotorsIN2 42
- #define FENA 40
-
+ #define echoPin 13  // Echo Pin of Ultrasonic Sensor
+ #define leftMotorsIN1 9
+ #define rightMotorsIN1 8
+ #define ENA 6 //Motor 1 PWM
+ #define ENB 5 //Motor 2 PWM
+ #define TXPin 10
+ #define RXPin 11
+ #define leftLimitSwitch 7
+ #define rightLimitSwitch 4
+ #define fanMotorsIN1 2
 
 
  // ANALOG IN MAIN.INO

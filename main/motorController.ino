@@ -5,7 +5,6 @@
 // Turn Left Motors Forward at set PWM
 void leftMotorForward(int PWM){
   digitalWrite(leftMotorsIN1, HIGH);
-  digitalWrite(leftMotorsIN2, LOW);
   analogWrite(ENA, PWM);
   
 }
@@ -13,7 +12,6 @@ void leftMotorForward(int PWM){
 // Turn Left Motors Backward at set PWM
 void leftMotorBackward(int PWM){
   digitalWrite(leftMotorsIN1, LOW);
-  digitalWrite(leftMotorsIN2, HIGH);
   analogWrite(ENA, PWM);
 
 }
@@ -21,14 +19,12 @@ void leftMotorBackward(int PWM){
 // Turn Right Motors Forward at set PWM
 void rightMotorForward(int PWM){
   digitalWrite(rightMotorsIN1, HIGH);
-  digitalWrite(rightMotorsIN2, LOW);
   analogWrite(ENB, PWM);
 }
 
 // Turn Right Motors Backward at set PWM
 void rightMotorBackward(int PWM){
   digitalWrite(rightMotorsIN1, LOW);
-  digitalWrite(rightMotorsIN2, HIGH);
   analogWrite(ENB, PWM);
 }
 
@@ -59,14 +55,12 @@ void driveBackward(int PWM){
 // Stop the Left Motors
 void stopLeftMotor(){
   digitalWrite(leftMotorsIN1, LOW);
-  digitalWrite(leftMotorsIN2, LOW);
   analogWrite(ENA, 0);
 }
 
 // Stop the Right Motors
 void stopRightMotor(){
   digitalWrite(rightMotorsIN1, LOW);
-  digitalWrite(rightMotorsIN2, LOW);
   analogWrite(ENB, 0);
 }
 

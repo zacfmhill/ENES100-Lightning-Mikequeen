@@ -34,6 +34,23 @@ int currentStage = 1;
 int last; 
 int check;
 
+/*************************************************
+  Node Setup
+ *************************************************/
+double nodeA[2] = {1,0.5};
+double nodeB[2] = {1,1};
+double nodeC[2] = {1,1.5};
+double nodeD[2] = {1.9,0.5};
+double nodeE[2] = {1.9,1};
+double nodeF[2] = {1.9,1.5};
+double nodeG[2] = {3,0.5};
+double nodeH[2] = {3,1};
+double nodeI[2] = {3,1.5};
+double nodeJ[2] = {3.9,1.5};
+
+
+
+
 
 void setup() {
    Serial.begin(9600);
@@ -43,9 +60,7 @@ void setup() {
     pinMode(echoPin, INPUT);
       // Motors
     pinMode(leftMotorsIN1, OUTPUT);
-    pinMode(leftMotorsIN2, OUTPUT);
     pinMode(rightMotorsIN1, OUTPUT);
-    pinMode(rightMotorsIN2, OUTPUT);
     pinMode(ENA, OUTPUT);
     pinMode(ENB, OUTPUT);
       // Servo
@@ -56,12 +71,11 @@ void setup() {
       //Line Folowers
     pinMode(leftLineSensor, INPUT); 
     pinMode(rightLineSensor, INPUT); 
+    pinMode(leftLimitSwitch, INPUT);
+    pinMode(rightLimitSwitch, INPUT);
       //fan
     pinMode(fanMotorsIN1, OUTPUT);
-    pinMode(fanMotorsIN2, OUTPUT);
-    pinMode(FENA, OUTPUT);
-    pinMode(A11, INPUT);
-    pinMode(A10, INPUT);
+
 
 
 
@@ -77,21 +91,38 @@ void setup() {
 }
 
 void loop() {
-  driveForward(150);
- // driveForward(255);
+  
+  
+  // while(1){
+  //   Serial.println("FWD");
+  //   driveForward(255);
+  //   delay(3000);
+  //   Serial.println("BWD");
+  //   driveBackward(255);
+  //   delay(3000);
+  //   Serial.println("LFT");
+  //   turnLeft(255);
+  //   delay(3000);
+  //   Serial.println("RGT");
+  //   turnRight(255);
+  //   delay(3000);
+  //   Serial.println("STP");
+  //   stopMotors();
+  //   delay(3000);
+  // }
   // while(!Enes100.ping());
 
-  // while(1){
-   // delay(500);
-   // Serial.print("LEFT ");
+  while(1){
+   delay(500);
+   Serial.print("LEFT ");
 
-//    Serial.println(analogRead(A15));
+   Serial.println(digitalRead(leftLimitSwitch));
    
     
-    //  Serial.print("RIGHT ");
-    // Serial.println(analogRead(A15));
+     Serial.print("RIGHT ");
+    Serial.println(digitalRead(rightLimitSwitch));
 
-  // }
+  }
 
   // while(1){
   // delay(100);
@@ -120,7 +151,7 @@ void loop() {
      // followLine();
      driveForward(150);
       // stop when limit switch hits
-    if(analogRead(A15) <  1000 || analogRead(A14) < 1000){
+    if(digitalRead(leftLimitSwitch) == 0  || digitalRead(rightLimitSwitch) == 0){
       currentStage++;
     }
     //currentStage++;
@@ -163,6 +194,7 @@ void loop() {
     break;
     case Navigate_To_End_Stage:
     // statements
+
     break;
   }
 

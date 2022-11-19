@@ -5,15 +5,11 @@
 // Turns on the fans. 
  void turnOnFan(int PWM){
    digitalWrite(fanMotorsIN1, HIGH);
-    digitalWrite(fanMotorsIN2, LOW);
-    analogWrite(FENA, PWM);
  }
 
 // Turns off the fans. 
  void turnOffFan(){
    digitalWrite(fanMotorsIN1, LOW);
-    digitalWrite(fanMotorsIN2, LOW);
-    analogWrite(FENA, 0);
  }
 
 // Returns true if all flames out, false if flames still present. 
