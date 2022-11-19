@@ -112,17 +112,17 @@ void loop() {
   // }
   // while(!Enes100.ping());
 
-  while(1){
-   delay(500);
-   Serial.print("LEFT ");
+  // while(1){
+  //  delay(500);
+  //  Serial.print("LEFT ");
 
-   Serial.println(digitalRead(leftLimitSwitch));
+  //  Serial.println(digitalRead(leftLimitSwitch));
    
     
-     Serial.print("RIGHT ");
-    Serial.println(digitalRead(rightLimitSwitch));
+  //    Serial.print("RIGHT ");
+  //   Serial.println(digitalRead(rightLimitSwitch));
 
-  }
+  // }
 
   // while(1){
   // delay(100);
