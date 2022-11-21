@@ -54,13 +54,11 @@ void driveBackward(int PWM){
 
 // Stop the Left Motors
 void stopLeftMotor(){
-  digitalWrite(leftMotorsIN1, LOW);
   analogWrite(ENA, 0);
 }
 
 // Stop the Right Motors
 void stopRightMotor(){
-  digitalWrite(rightMotorsIN1, LOW);
   analogWrite(ENB, 0);
 }
 

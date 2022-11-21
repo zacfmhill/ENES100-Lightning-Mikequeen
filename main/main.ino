@@ -84,15 +84,19 @@ void setup() {
     
     
     
-    Enes100.begin("Lightning Mikequeen", FIRE, MarkerID, 51, 50);
+    Enes100.begin("Lightning Mikequeen", FIRE, MarkerID, TXPin, RXPin);
     
     goalLocation[0] = Enes100.missionSite.x;
   	goalLocation[1] = Enes100.missionSite.y;
 }
 
 void loop() {
-  
-  
+     //   updateCurrentLocation();
+
+
+  // while(1){
+  // driveForward(150);
+  // }
   // while(1){
   //   Serial.println("FWD");
   //   driveForward(255);
@@ -143,13 +147,16 @@ void loop() {
   // Control which step in mission
   switch(currentStage){
     case Find_Line_Stage:
+      turnOffFan();
       findLine();
       currentStage++;
     break;
     case Line_Follow_Stage:
+      turnOffFan();
       //follow line 
      // followLine();
      driveForward(150);
+     delay(1000);
       // stop when limit switch hits
     if(digitalRead(leftLimitSwitch) == 0  || digitalRead(rightLimitSwitch) == 0){
       currentStage++;
@@ -184,6 +191,7 @@ void loop() {
         // if(checker){
         //   counter = 4; 
         // }
+        stopMotors();
         turnOnFan(255);
         delay(10000);
         turnOffFan();
