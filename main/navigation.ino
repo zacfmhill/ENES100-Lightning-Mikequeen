@@ -158,7 +158,31 @@ void moveToGoalLocation(){
 	Enes100.println("Goal Location:");
 	Enes100.println(goalLocation[0]);
 	Enes100.println(goalLocation[1]);
-	turnToAngleLeft(calculateDesiredAngle());
+	
+  //**updated turning**// -- Marco
+  if(calculateDesiredAngle<0){ //goal angle is below us
+    if(Enes100.location.theta<(pi/2) && Enes100.location.theta>(-pi)/2){ //idk if pi is the constant name
+      turnToAngleRight(calculateDesiredAngle()); //turn right
+    }
+    else if(Enes100.location.theta>(pi/2) && Enes100.location.theta<(-pi)/2){
+      turnToAngleLeft(calculateDesiredAngle()); //turn left
+    }
+    else if(Enes100.location.theta == calculateDesiredAngle()){ //probably not accurate??
+      break; //don't turn
+    }
+  }
+  else{ //goal angle is above us
+    if(Enes100.location.theta<(pi/2) && Enes100.location.theta>(-pi)/2){ //idk if pi is the constant name
+      turnToAngleLeft(calculateDesiredAngle()); //turn left
+    }
+    else if(Enes100.location.theta>(pi/2) && Enes100.location.theta<(-pi)/2){
+      turnToAngleRight(calculateDesiredAngle()); //turn right
+    }
+    else if(Enes100.location.theta == calculateDesiredAngle()){ //probably not accurate??
+      break; //don't turn
+    }
+  }
+
 	stopMotors();
 	delay(1000);
 	driveBackward(255);
