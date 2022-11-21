@@ -30,7 +30,7 @@ const int farRightTherm = A5;
 double lastLocation[3];
 double currentLocation[3];
 double goalLocation[2];
-int currentStage = 1; 
+int currentStage = 5; 
 int last; 
 int check;
 

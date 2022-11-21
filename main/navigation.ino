@@ -159,29 +159,42 @@ void moveToGoalLocation(){
 	Enes100.println(goalLocation[0]);
 	Enes100.println(goalLocation[1]);
 	
-    //**updated turning**// -- Marco
-  if(calculateDesiredAngle()<0){ //goal angle is below us
-    if(Enes100.location.theta<(PI/2) && Enes100.location.theta>(-PI)/2){ //idk if pi is the constant name
-      turnToAngleRight(calculateDesiredAngle()); //turn right
+  //**updated turning**// -- Marco                                                    //psuedocode below :P//
+  
+  if(calculateDesiredAngle()>(-PI) && calculateDesiredAngle()<(-PI/4)){           //**IF GOAL ANGLE IS BELOW US**//
+    if(Enes100.location.theta<(PI/2) && Enes100.location.theta>(-PI)/2){              //if we're pointing to the right
+      turnToAngleRight(calculateDesiredAngle());                                          //turn right
     }
-    else if(Enes100.location.theta>(PI/2) && Enes100.location.theta<(-PI)/2){
-      turnToAngleLeft(calculateDesiredAngle()); //turn left
+    else if(Enes100.location.theta>(PI/2) && Enes100.location.theta<(-PI)/2){         //if we're pointing to the left
+      turnToAngleLeft(calculateDesiredAngle());                                           //turn left
     }
-    else if(Enes100.location.theta == calculateDesiredAngle()){ //probably not accurate??
-      stopMotors();
-    }
-  }
-  else{ //goal angle is above us
-    if(Enes100.location.theta<(PI/2) && Enes100.location.theta>(-PI)/2){ //idk if pi is the constant name
-      turnToAngleLeft(calculateDesiredAngle()); //turn left
-    }
-    else if(Enes100.location.theta>(PI/2) && Enes100.location.theta<(-PI)/2){
-      turnToAngleRight(calculateDesiredAngle()); //turn right
-    }
-    else if(Enes100.location.theta == calculateDesiredAngle()){ //probably not accurate??
-      stopMotors();
+    else if(Enes100.location.theta == calculateDesiredAngle()){                       //if we're already pointing toward our desired node
+      stopMotors();                                                                       //continue
     }
   }
+  else if(calculateDesiredAngle()>=(-PI/4) && calculateDesiredAngle()<=(PI/4)){   //**IF GOAL ANGLE IS TO THE RIGHT**//
+    if(Enes100.location.theta>(-PI) && Enes100.location.theta<0){                     //if we're pointing down
+      turnToAngleLeft(calculateDesiredAngle());                                           //turn left
+    }
+    else if(Enes100.location.theta<(PI) && Enes100.location.theta>0){                 //if we're pointing up
+      turnToAngleRight(calculateDesiredAngle());                                          //turn right
+    }
+    else if(Enes100.location.theta == calculateDesiredAngle()){                       //if we're already pointing toward our desired node
+      stopMotors();                                                                       //continue
+    }
+  }
+  else{                                                                           //**IF GOAL ANGLE IS ABOVE US**//
+    if(Enes100.location.theta<(PI/2) && Enes100.location.theta>(-PI)/2){              //if we're pointing to the right
+      turnToAngleLeft(calculateDesiredAngle());                                           //turn left
+    }
+    else if(Enes100.location.theta>(PI/2) && Enes100.location.theta<(-PI)/2){         //if we're pointing to the left
+      turnToAngleRight(calculateDesiredAngle());                                          //turn right
+    }
+    else if(Enes100.location.theta == calculateDesiredAngle()){                       //if we're already pointing toward our desired node
+      stopMotors();                                                                       //continue
+    }
+  } // -- Marco out o7//
+
 	stopMotors();
 	delay(1000);
 	driveBackward(255);
