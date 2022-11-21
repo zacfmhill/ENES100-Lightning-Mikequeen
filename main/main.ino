@@ -201,8 +201,139 @@ void loop() {
     currentStage++;
     break;
     case Navigate_To_End_Stage:
-    // statements
 
+				// Go to A
+				goalLocation[0] = nodeA[0];
+				goalLocation[1] = nodeA[1];
+				Enes100.println("GOING TO A...");
+				moveToGoalLocation();
+				Enes100.println("MADE IT TO A");
+				goalLocation[0] = nodeD[0];
+				goalLocation[1] = nodeD[1];
+				Enes100.println("GOING TO D");
+				if(not moveToGoalLocation()){
+					Enes100.println("DID NOT MAKE IT TO D");
+					//DID NOT MAKE IT TO D. 
+					// Back up 
+					Tank.setRightMotorPWM(-255);
+					Tank.setLeftMotorPWM(-255);
+					delay(1000);
+					Tank.setRightMotorPWM(0);
+					Tank.setLeftMotorPWM(0);
+					// Set goal to B 
+					goalLocation[0] = nodeB[0];
+					goalLocation[1] = nodeB[1];
+					// Move to B 
+					Enes100.println("GOING TO B");
+					moveToGoalLocation();
+					Enes100.println("MADE IT TO B");
+					// Set goal to E
+					goalLocation[0] = nodeE[0];
+					goalLocation[1] = nodeE[1];
+					Enes100.println("GOING TO E");
+					if(not moveToGoalLocation()){
+						Enes100.println("MADE IT TO E");
+						// DID NOT MAKE IT TO E. 
+						Tank.setRightMotorPWM(-255);
+						Tank.setLeftMotorPWM(-255);
+						delay(100);
+						Tank.setRightMotorPWM(0);
+						Tank.setLeftMotorPWM(0);
+						// set goal to C. 
+						goalLocation[0] = nodeC[0];
+						goalLocation[1] = nodeC[1];
+						//move to C
+						Enes100.println("GOING TO C");
+						moveToGoalLocation();
+						Enes100.println("MADE IT TO C");
+						// Set goal to F. 
+						goalLocation[0] = nodeF[0];
+						goalLocation[1] = nodeF[1];
+						//move to F. 
+						Enes100.println("GOING TO F");
+						moveToGoalLocation();
+						Enes100.println("MADE IT TO F");
+						
+						
+					}
+					// no matter what at this point it has reached the second row and so we move down to D. 
+					// Go to D
+					Enes100.println("GOING TO D");
+					goalLocation[0] = nodeD[0];
+					goalLocation[1] = nodeD[1];
+					moveToGoalLocation();
+					Enes100.println("MADE IT TO D");
+				}
+				goalLocation[0] = nodeG[0];
+				goalLocation[1] = nodeG[1];
+				moveToGoalLocation();
+				if(not moveToGoalLocation()){
+					//DID NOT MAKE IT TO G. 
+					// Back up 
+					Tank.setRightMotorPWM(-255);
+					Tank.setLeftMotorPWM(-255);
+					delay(100);
+					Tank.setRightMotorPWM(0);
+					Tank.setLeftMotorPWM(0);
+					// Set goal to E 
+					goalLocation[0] = nodeE[0];
+					goalLocation[1] = nodeE[1];
+					// Move to E 
+					moveToGoalLocation();
+					// Set goal to H
+					goalLocation[0] = nodeH[0];
+					goalLocation[1] = nodeH[1];
+					if(not moveToGoalLocation()){
+						// DID NOT MAKE IT TO H. 
+						Tank.setRightMotorPWM(-255);
+						Tank.setLeftMotorPWM(-255);
+						delay(100);
+						Tank.setRightMotorPWM(0);
+						Tank.setLeftMotorPWM(0);
+						// set goal to F. 
+						goalLocation[0] = nodeF[0];
+						goalLocation[1] = nodeF[1];
+						//move to C
+						moveToGoalLocation();
+						// Set goal to I. 
+						goalLocation[0] = nodeI[0];
+						goalLocation[1] = nodeI[1];
+						//move to I. 
+						moveToGoalLocation();
+						// move to J
+						goalLocation[0] = nodeJ[0];
+						goalLocation[1] = nodeJ[1];
+						moveToGoalLocation();
+						currentStage++;
+						break;
+					}
+											// Set goal to I. 
+						goalLocation[0] = nodeI[0];
+						goalLocation[1] = nodeI[1];
+						//move to I. 
+						moveToGoalLocation();
+						// move to J
+						goalLocation[0] = nodeJ[0];
+						goalLocation[1] = nodeJ[1];
+						moveToGoalLocation();
+						currentStage++;
+						break;
+					
+				}
+										// Set goal to I. 
+						goalLocation[0] = nodeI[0];
+						goalLocation[1] = nodeI[1];
+						//move to I. 
+						moveToGoalLocation();
+						// move to J
+						goalLocation[0] = nodeJ[0];
+						goalLocation[1] = nodeJ[1];
+						moveToGoalLocation();
+						currentStage++;
+						break;
+				
+			}
+			currentStage++;
     break;
   }
 

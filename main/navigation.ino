@@ -159,30 +159,29 @@ void moveToGoalLocation(){
 	Enes100.println(goalLocation[0]);
 	Enes100.println(goalLocation[1]);
 	
-  //**updated turning**// -- Marco
-  if(calculateDesiredAngle<0){ //goal angle is below us
-    if(Enes100.location.theta<(pi/2) && Enes100.location.theta>(-pi)/2){ //idk if pi is the constant name
+    //**updated turning**// -- Marco
+  if(calculateDesiredAngle()<0){ //goal angle is below us
+    if(Enes100.location.theta<(PI/2) && Enes100.location.theta>(-PI)/2){ //idk if pi is the constant name
       turnToAngleRight(calculateDesiredAngle()); //turn right
     }
-    else if(Enes100.location.theta>(pi/2) && Enes100.location.theta<(-pi)/2){
+    else if(Enes100.location.theta>(PI/2) && Enes100.location.theta<(-PI)/2){
       turnToAngleLeft(calculateDesiredAngle()); //turn left
     }
     else if(Enes100.location.theta == calculateDesiredAngle()){ //probably not accurate??
-      break; //don't turn
+      stopMotors();
     }
   }
   else{ //goal angle is above us
-    if(Enes100.location.theta<(pi/2) && Enes100.location.theta>(-pi)/2){ //idk if pi is the constant name
+    if(Enes100.location.theta<(PI/2) && Enes100.location.theta>(-PI)/2){ //idk if pi is the constant name
       turnToAngleLeft(calculateDesiredAngle()); //turn left
     }
-    else if(Enes100.location.theta>(pi/2) && Enes100.location.theta<(-pi)/2){
+    else if(Enes100.location.theta>(PI/2) && Enes100.location.theta<(-PI)/2){
       turnToAngleRight(calculateDesiredAngle()); //turn right
     }
     else if(Enes100.location.theta == calculateDesiredAngle()){ //probably not accurate??
-      break; //don't turn
+      stopMotors();
     }
   }
-
 	stopMotors();
 	delay(1000);
 	driveBackward(255);
@@ -201,7 +200,13 @@ void moveToGoalLocation(){
 		updateCurrentLocation();
 		deltaX = abs(currentLocation[0] - goalLocation[0]);
 		deltaY = abs(currentLocation[1] - goalLocation[1]);
-	  driveBackward(255);
+    if(getUltrasonicDistance() < 5){
+			deltaX = 0; 
+			deltaY = 0; 
+			Enes100.println("THING SPOTTED IN FRONT ");
+			return false;
+		}
+	  driveForward(255);
 	}
 	stopMotors();
 	
